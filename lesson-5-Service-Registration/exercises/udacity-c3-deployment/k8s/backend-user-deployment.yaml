@@ -1,18 +1,19 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    service: backend-user
   name: backend-user
 spec:
+  selector:
+    matchLabels:
+      app: backend-user
   replicas: 2
   template:
     metadata:
       labels:
-        service: backend-user
+        app: backend-user
     spec:
       containers:
-      - image: scheele/udacity-restapi-user
+      - image: ktripp/udacity-restapi-user
         name: backend-user 
         imagePullPolicy: Always  
         resources:
@@ -54,5 +55,13 @@ spec:
               name: env-secret
               key: POSTGRESS_USERNAME
       restartPolicy: Always
+      volumes:
+        - name: env-secret
+          secret:
+            secretName: env-secret
+        - name: configmap-volume
+          configMap:
+            name: env-config
+
 
 

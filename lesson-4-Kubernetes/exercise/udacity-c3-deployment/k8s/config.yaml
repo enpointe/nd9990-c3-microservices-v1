@@ -1,0 +1,6 @@
+apiVersion: extensions/v1beta1
+kind: Deployment 
+versions:
+  kubernetes: '1.16.1'
+cloudProvider:
+  name: 'aws'
